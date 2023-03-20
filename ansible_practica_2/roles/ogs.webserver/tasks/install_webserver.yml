@@ -1,0 +1,23 @@
+- name: installing podman
+  package:
+    name: "podman"
+    state: present
+- name: Pull an image
+  containers.podman.podman_image:
+  # direccion del ACR y nombre de la imagen
+    name: ogsacr.azurecr.io/nginx:latest
+  # credenciales en ACR  
+    username: "ogsacr"
+    password: "kzFRfWFeDwORo6WySMZAlzMrMjbfH3X9IO5CIcBhpy+ACRDGc9tt"
+- name: Create a webserver container
+  containers.podman.podman_container:
+  # Nombre container
+    name: unirp2-web
+  # Imagen a utilizar
+    image: ogsacr.azurecr.io/nginx:latest
+    state: started
+    detach: true
+    exposed_ports:
+      - 80
+    ports:
+      - 8080:80

@@ -1,0 +1,7 @@
+---
+# tasks file for ogs.webserver
+- import_tasks: install_webserver.yml
+  become: true
+  tags:
+    - install_webserver
+

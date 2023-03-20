@@ -1,0 +1,6 @@
+---
+- name: Deploy webserver
+  hosts: [web-servers]
+  roles:
+    - ogs.webserver
+

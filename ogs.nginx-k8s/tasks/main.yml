@@ -1,0 +1,16 @@
+---
+# tasks file for ogs.nginx-k8s
+# en caso de utilizar orto fichero que no fuera main.yml en el directorio vars, se configuraria asi:
+#- name: include vars
+#  include_vars: vars_nginx-k8s.yml
+- name: 'Crear el namespace de trabajo'
+  kubernetes.core.k8s:
+    kubeconfig: "{{ kubeconfig }}"
+    kind: Namespace
+    name: "{{ k8s_namespace }}"
+- name: Launch nginx with persistent volume deployment
+  kubernetes.core.k8s:
+    state: present
+    kubeconfig: "{{ kubeconfig }}"
+    namespace: "{{ k8s_namespace }}"
+    src: "{{ k8s_manifest_dir }}/{{ manifest_file }}"

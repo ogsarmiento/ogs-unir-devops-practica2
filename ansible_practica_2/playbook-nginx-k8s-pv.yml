@@ -1,0 +1,5 @@
+---
+- name: Deploy nginx with persistent volume
+  hosts: localhost
+  roles:
+    - ogs.nginx-k8s
