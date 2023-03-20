@@ -63,9 +63,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   }
  # Operaciones con ACR 
   provisioner "local-exec" {
- # Enlaza el ACR con el AKS
-    command = "az aks update -n ${var.cluster_name} -g ${azurerm_resource_group.rg.name} --attach-acr ${azurerm_container_registry.ogsacr.name}"
- # Subida de la imagen nginx al ACR para su uso
-    command = "az acr import --name ${azurerm_container_registry.ogsacr.name} --source docker.io/library/nginx:latest --image nginx:latest"
+ # Enlaza el ACR con el AKS y sube la ultima version de la imagen nginx oficial al ACR
+    command = "az aks update -n ${var.cluster_name} -g ${azurerm_resource_group.rg.name} --attach-acr ${azurerm_container_registry.ogsacr.name} ; az acr import --name ${azurerm_container_registry.ogsacr.name} --source docker.io/library/nginx:latest --image nginx:latest"
   }
 }
